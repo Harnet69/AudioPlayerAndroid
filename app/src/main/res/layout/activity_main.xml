@@ -47,10 +47,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/songInfoDisplay">
 
+        <Button
+            android:id="@+id/muteBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/mute_btn" />
+
         <SeekBar
             android:id="@+id/volumeControl"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
             tools:layout_conversion_absoluteHeight="50dp"
             tools:layout_conversion_absoluteWidth="250dp"
             tools:layout_editor_absoluteX="70dp"
@@ -58,11 +65,10 @@
 
         <TextView
             android:id="@+id/volumeLevelDisplay"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="20sp"
-            android:textStyle="bold"
             tools:layout_conversion_absoluteHeight="50dp"
             tools:layout_conversion_absoluteWidth="0dp"
             tools:layout_editor_absoluteX="420dp"
