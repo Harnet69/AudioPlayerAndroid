@@ -10,11 +10,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.harnet.audioplayer.R;
+import com.harnet.audioplayer.model.Buttons.ControlBtn;
+import com.harnet.audioplayer.model.Buttons.PlayBtn;
 
 import java.util.Arrays;
 
@@ -34,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         songNameTextView = findViewById(R.id.songInfo);
+        play = findViewById(R.id.playBtn);
+        pause = findViewById(R.id.pauseBtn);
         volumeControl = findViewById(R.id.volumeControl);
 
 
 //        volumeControl.setMax(maxVolume);
 //        volumeControl.setProgress(currentVolume);
-        play = findViewById(R.id.playBtn);
-        pause = findViewById(R.id.pauseBtn);
         mediaPlayer = MediaPlayer.create(this, R.raw.marbles);
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -48,31 +51,34 @@ public class MainActivity extends AppCompatActivity {
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        playMusic();
-        pauseMusic();
+        ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
+        playBtn.clickAction(play);
+
+//        playMusic();
+//        pauseMusic();
         seekBar(maxVolume);
 
     }
 
-    public void playMusic(){
-        play.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.start();
-                songNameTextView.setText(Arrays.toString(mediaPlayer.getTrackInfo()));
-            }
-        });
-    }
-
-    public void pauseMusic(){
-        pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mediaPlayer.pause();
-            }
-        });
-    }
+//    public void playMusic(){
+//        play.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+//            @Override
+//            public void onClick(View v) {
+//                mediaPlayer.start();
+//                songNameTextView.setText(Arrays.toString(mediaPlayer.getTrackInfo()));
+//            }
+//        });
+//    }
+//
+//    public void pauseMusic(){
+//        pause.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mediaPlayer.pause();
+//            }
+//        });
+//    }
 
     public void seekBar(final int maxVolume){
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -92,5 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }
