@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.harnet.audioplayer.R;
 import com.harnet.audioplayer.model.Buttons.ControlBtn;
+import com.harnet.audioplayer.model.Buttons.PauseBtn;
 import com.harnet.audioplayer.model.Buttons.PlayBtn;
 
 import java.util.Arrays;
@@ -52,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
         int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
+        ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
         playBtn.clickAction(play);
+        pauseBtn.clickAction(pause);
 
 //        playMusic();
 //        pauseMusic();
