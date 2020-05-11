@@ -52,7 +52,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:background="@drawable/mute_btn" />
+            android:background="@drawable/unmute_btn" />
 
         <SeekBar
             android:id="@+id/volumeControl"

@@ -31,23 +31,24 @@ public class MainActivity extends AppCompatActivity {
         TextView songNameTextDisplay = findViewById(R.id.songInfoDisplay);
         TextView volumeLevelDisplay = findViewById(R.id.volumeLevelDisplay);
         Button muteBtnView = findViewById(R.id.muteBtn);
-        SeekBar volumeControl = findViewById(R.id.volumeControl);
-        ImageButton play = findViewById(R.id.playBtn);
-        ImageButton pause = findViewById(R.id.pauseBtn);
+        SeekBar volumeControlView = findViewById(R.id.volumeControl);
+        ImageButton playView = findViewById(R.id.playBtn);
+        ImageButton pauseView = findViewById(R.id.pauseBtn);
 
 
 
         SongInfo songInfo = new SongInfo();
         assert audioManager != null;
-        VolumeControl volumeControls = new VolumeControl(audioManager, volumeLevelDisplay);
+        VolumeControl volumeControls = new VolumeControl(audioManager, volumeLevelDisplay, muteBtnView);
         volumeLevelDisplay.setText(String.valueOf(Math.round(volumeControls.getCurrentVolume()*6.66)));
         MuteBtn muteBtn = new MuteBtn("Mute btn", audioManager);
+
+        volumeControls.manageVolumeControl(volumeControlView, volumeLevelDisplay);
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
 
         muteBtn.clickAction(muteBtnView, volumeControls);
-        playBtn.clickAction(play);
-        pauseBtn.clickAction(pause);
-        volumeControls.manageVolumeControl(volumeControl, volumeLevelDisplay);
+        playBtn.clickAction(playView);
+        pauseBtn.clickAction(pauseView);
     }
 }
