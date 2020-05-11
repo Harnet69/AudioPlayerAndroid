@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.harnet.audioplayer.model.VolumeControl;
+
 public class MuteBtn extends ControlBtn{
     private AudioManager audioManager;
 
@@ -14,11 +16,11 @@ public class MuteBtn extends ControlBtn{
     }
 
 
-    public void clickAction(Button btn) {
+    public void clickAction(Button btn, final VolumeControl volumeControls) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,0);
+                volumeControls.muteSound();
             }
         });
     }

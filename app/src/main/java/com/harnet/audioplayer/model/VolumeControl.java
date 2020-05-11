@@ -9,11 +9,13 @@ public class VolumeControl {
     private AudioManager audioManager;
     private int maxVolume;
     private int currentVolume;
+    private TextView volumeLevelDisplay;
 
-    public VolumeControl(AudioManager audioManager) {
+    public VolumeControl(AudioManager audioManager, TextView volumeLevelDisplay) {
         this.audioManager = audioManager;
         maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        this.volumeLevelDisplay = volumeLevelDisplay;
     }
 
     public int getCurrentVolume() {
@@ -42,5 +44,9 @@ public class VolumeControl {
 
             }
         });
+    }
+    public void muteSound(){
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,0);
+        volumeLevelDisplay.setText(String.valueOf(0));
     }
 }

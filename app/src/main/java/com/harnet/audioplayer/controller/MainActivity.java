@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         SongInfo songInfo = new SongInfo();
         assert audioManager != null;
-        VolumeControl volumeControls = new VolumeControl(audioManager);
+        VolumeControl volumeControls = new VolumeControl(audioManager, volumeLevelDisplay);
         volumeLevelDisplay.setText(String.valueOf(Math.round(volumeControls.getCurrentVolume()*6.66)));
         MuteBtn muteBtn = new MuteBtn("Mute btn", audioManager);
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
 
-        muteBtn.clickAction(muteBtnView);
+        muteBtn.clickAction(muteBtnView, volumeControls);
         playBtn.clickAction(play);
         pauseBtn.clickAction(pause);
         volumeControls.manageVolumeControl(volumeControl, volumeLevelDisplay);
