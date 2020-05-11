@@ -15,7 +15,9 @@ public class VolumeControl {
         currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     }
 
-    public void manageVolumeControl(SeekBar volumeControl){
+    public void manageVolumeControl(final SeekBar volumeControl){
+        volumeControl.setMax(maxVolume);
+        volumeControl.setProgress(currentVolume); // save a current volume level
 
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
