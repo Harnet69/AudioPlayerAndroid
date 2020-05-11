@@ -1,5 +1,7 @@
 package com.harnet.audioplayer.model;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Button;
@@ -10,14 +12,16 @@ import com.harnet.audioplayer.R;
 
 public class VolumeControl {
     private AudioManager audioManager;
+    private SeekBar volumeControl;
     private TextView volumeLevelDisplay;
     private int maxVolume;
     private int currentVolume;
     private Button muteBtnView;
     private boolean isSoundMute;
 
-    public VolumeControl(AudioManager audioManager, TextView volumeLevelDisplay, Button muteBtnView) {
+    public VolumeControl(AudioManager audioManager, SeekBar volumeControl, TextView volumeLevelDisplay, Button muteBtnView) {
         this.audioManager = audioManager;
+        this.volumeControl = volumeControl;
         maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         this.volumeLevelDisplay = volumeLevelDisplay;
@@ -32,7 +36,7 @@ public class VolumeControl {
         return isSoundMute;
     }
 
-    public void manageVolumeControl(final SeekBar volumeControl, final TextView volumeLevelDisplay){
+    public void manageVolumeControl(){
         volumeControl.setMax(maxVolume);
         volumeControl.setProgress(currentVolume); // save a current volume level
 
@@ -43,6 +47,7 @@ public class VolumeControl {
 //                Log.i("Seek bar change", String.valueOf(progress));
                 volumeLevelDisplay.setText(String.valueOf(Math.round(progress*6.66)));
                 muteBtnView.setBackgroundResource(R.drawable.unmute_btn);
+                volumeControl.getProgressDrawable().setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
                 isSoundMute = false;
             }
 
@@ -61,6 +66,15 @@ public class VolumeControl {
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,0);
         volumeLevelDisplay.setText(String.valueOf(0));
         muteBtnView.setBackgroundResource(R.drawable.mute_btn);
+        volumeControl.getProgressDrawable().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
         isSoundMute = true;
+    }
+
+    public void unmuteSound(){
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume,0);
+        volumeLevelDisplay.setText(String.valueOf(currentVolume));
+        muteBtnView.setBackgroundResource(R.drawable.unmute_btn);
+        volumeControl.getProgressDrawable().setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+        isSoundMute = false;
     }
 }
