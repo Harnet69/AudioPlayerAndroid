@@ -3,6 +3,7 @@ package com.harnet.audioplayer.model;
 import android.media.AudioManager;
 import android.util.Log;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class VolumeControl {
     private AudioManager audioManager;
@@ -15,7 +16,11 @@ public class VolumeControl {
         currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     }
 
-    public void manageVolumeControl(final SeekBar volumeControl){
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void manageVolumeControl(final SeekBar volumeControl, final TextView volumeLevelDisplay){
         volumeControl.setMax(maxVolume);
         volumeControl.setProgress(currentVolume); // save a current volume level
 
@@ -24,6 +29,7 @@ public class VolumeControl {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress,0);
                 Log.i("Seek bar change", String.valueOf(progress));
+                volumeLevelDisplay.setText(String.valueOf(progress));
             }
 
             @Override

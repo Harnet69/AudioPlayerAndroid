@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.marbles);
         AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
-        TextView songNameTextView = findViewById(R.id.songInfo);
+        TextView songNameTextDisplay = findViewById(R.id.songInfoDisplay);
+        TextView volumeLevelDisplay = findViewById(R.id.volumeLevelDisplay);
         SeekBar volumeControl = findViewById(R.id.volumeControl);
         ImageButton play = findViewById(R.id.playBtn);
         ImageButton pause = findViewById(R.id.pauseBtn);
@@ -36,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
         SongInfo songInfo = new SongInfo();
         assert audioManager != null;
         VolumeControl volumeControls = new VolumeControl(audioManager);
+        volumeLevelDisplay.setText(String.valueOf(volumeControls.getCurrentVolume()));
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
 
         playBtn.clickAction(play);
         pauseBtn.clickAction(pause);
-        volumeControls.manageVolumeControl(volumeControl);
+        volumeControls.manageVolumeControl(volumeControl, volumeLevelDisplay);
     }
 }
