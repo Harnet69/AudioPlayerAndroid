@@ -19,6 +19,8 @@ import com.harnet.audioplayer.R;
 import com.harnet.audioplayer.model.Buttons.ControlBtn;
 import com.harnet.audioplayer.model.Buttons.PauseBtn;
 import com.harnet.audioplayer.model.Buttons.PlayBtn;
+import com.harnet.audioplayer.model.SongInfo;
+import com.harnet.audioplayer.model.VolumeControl;
 
 import java.util.Arrays;
 
@@ -46,20 +48,25 @@ public class MainActivity extends AppCompatActivity {
 //        volumeControl.setMax(maxVolume);
 //        volumeControl.setProgress(currentVolume);
         mediaPlayer = MediaPlayer.create(this, R.raw.marbles);
-
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        assert audioManager != null;
-        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
+//        assert audioManager != null;
+//        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+//        int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        SongInfo songInfo = new SongInfo();
+        VolumeControl volumeControls = new VolumeControl(audioManager);
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
+
         playBtn.clickAction(play);
         pauseBtn.clickAction(pause);
+        volumeControls.manageVolumeControl(volumeControl);
+
 
 //        playMusic();
 //        pauseMusic();
-        seekBar(maxVolume);
+//        seekBar(maxVolume);
 
     }
 
@@ -83,24 +90,24 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
-    public void seekBar(final int maxVolume){
-        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress,0);
-                Log.i("Seek bar change", String.valueOf(progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-    }
+//    public void seekBar(final int maxVolume){
+//        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress,0);
+//                Log.i("Seek bar change", String.valueOf(progress));
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
+//
+//    }
 }
