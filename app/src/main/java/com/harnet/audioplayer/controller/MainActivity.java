@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.harnet.audioplayer.R;
 import com.harnet.audioplayer.model.Buttons.ControlBtn;
+import com.harnet.audioplayer.model.Buttons.MuteBtn;
 import com.harnet.audioplayer.model.Buttons.PauseBtn;
 import com.harnet.audioplayer.model.Buttons.PlayBtn;
 import com.harnet.audioplayer.model.SongInfo;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView songNameTextDisplay = findViewById(R.id.songInfoDisplay);
         TextView volumeLevelDisplay = findViewById(R.id.volumeLevelDisplay);
+        Button muteBtnView = findViewById(R.id.muteBtn);
         SeekBar volumeControl = findViewById(R.id.volumeControl);
         ImageButton play = findViewById(R.id.playBtn);
         ImageButton pause = findViewById(R.id.pauseBtn);
@@ -37,10 +40,12 @@ public class MainActivity extends AppCompatActivity {
         SongInfo songInfo = new SongInfo();
         assert audioManager != null;
         VolumeControl volumeControls = new VolumeControl(audioManager);
-        volumeLevelDisplay.setText(String.valueOf(volumeControls.getCurrentVolume()));
+        volumeLevelDisplay.setText(String.valueOf(Math.round(volumeControls.getCurrentVolume()*6.66)));
+        MuteBtn muteBtn = new MuteBtn("Mute btn", audioManager);
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
 
+        muteBtn.clickAction(muteBtnView);
         playBtn.clickAction(play);
         pauseBtn.clickAction(pause);
         volumeControls.manageVolumeControl(volumeControl, volumeLevelDisplay);

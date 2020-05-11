@@ -28,8 +28,8 @@ public class VolumeControl {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress,0);
-                Log.i("Seek bar change", String.valueOf(progress));
-                volumeLevelDisplay.setText(String.valueOf(progress));
+//                Log.i("Seek bar change", String.valueOf(progress));
+                volumeLevelDisplay.setText(String.valueOf(Math.round(progress*6.66)));
             }
 
             @Override
@@ -42,6 +42,5 @@ public class VolumeControl {
 
             }
         });
-
     }
 }
