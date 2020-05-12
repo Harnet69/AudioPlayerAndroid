@@ -1,8 +1,10 @@
 package com.harnet.audioplayer.controller;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,13 +22,14 @@ import com.harnet.audioplayer.model.VolumeControl;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.marbles);
+        // TODO implement audiotheque
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.old_car);
         AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         TextView songNameTextDisplay = findViewById(R.id.songInfoDisplay);
@@ -38,22 +41,26 @@ public class MainActivity extends AppCompatActivity {
         ImageButton playView = findViewById(R.id.playBtn);
         ImageButton pauseView = findViewById(R.id.pauseBtn);
 
+        // Song info displaying (HARDCODED for testing)
         SongInfo songInfo = new SongInfo();
+        songNameTextDisplay.setText(songInfo.getDisplayedText());
 
+        // Volume controls
         assert audioManager != null;
         VolumeControl volumeControls = new VolumeControl(audioManager, volumeControlView, volumeLevelDisplay, muteBtnView);
         volumeLevelDisplay.setText(String.valueOf(Math.round(volumeControls.getCurrentVolume()*6.66)));
         MuteBtn muteBtn = new MuteBtn("Mute btn", audioManager, volumeControls);
         volumeControls.manageVolumeControl();
+        muteBtn.clickAction(muteBtnView);
 
+        // Playing controls
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
-
-        ScrubControl scrubControls = new ScrubControl(mediaPlayer, scrubControlView, remainingTimeDisplay);
-        scrubControls.manageScrubControl();
-
-        muteBtn.clickAction(muteBtnView);
         playBtn.clickAction(playView);
         pauseBtn.clickAction(pauseView);
+
+        // Progress bar controls
+        ScrubControl scrubControls = new ScrubControl(mediaPlayer, scrubControlView, remainingTimeDisplay);
+        scrubControls.manageScrubControl();
     }
 }

@@ -51,7 +51,11 @@ public class ScrubControl {
             public void run() {
                 int currentPosition = mediaPlayer.getCurrentPosition();
                 scrubControlView.setProgress(currentPosition);
-                remainingTimeView.setText(convertTime(songDuration - currentPosition));
+                if(songDuration > currentPosition){
+                    remainingTimeView.setText(convertTime(songDuration - currentPosition));
+                }else{
+                    remainingTimeView.setText(convertTime(songDuration));
+                }
             }
         }, 0, 500);
     }
