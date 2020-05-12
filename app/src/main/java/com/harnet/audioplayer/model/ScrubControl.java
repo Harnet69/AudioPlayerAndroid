@@ -1,5 +1,6 @@
 package com.harnet.audioplayer.model;
 
+import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.widget.SeekBar;
@@ -25,11 +26,10 @@ public class ScrubControl {
     public void manageScrubControl(){
         timer();
         scrubControlView.setMax(mediaPlayer.getDuration());
+
         scrubControlView.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                Log.i("Duration", String.valueOf(mediaPlayer.getDuration()));
-//                Log.i("Scrub", String.valueOf(progress));
             }
 
             @Override
@@ -51,9 +51,18 @@ public class ScrubControl {
             public void run() {
                 int currentPosition = mediaPlayer.getCurrentPosition();
                 scrubControlView.setProgress(currentPosition);
-                remainingTimeView.setText(String.valueOf(songDuration - currentPosition));
+                remainingTimeView.setText(convertTime(songDuration - currentPosition));
             }
-        }, 0, 1000);
+        }, 0, 500);
+    }
 
+    @SuppressLint("DefaultLocale")
+    private String convertTime(int durationInMillis){
+//        long millis = durationInMillis % 1000;
+        long second = (durationInMillis / 1000) % 60;
+        long minute = (durationInMillis / (1000 * 60)) % 60;
+        long hour = (durationInMillis / (1000 * 60 * 60)) % 24;
+
+        return String.format("%01d:%02d:%02d", hour, minute, second);
     }
 }
