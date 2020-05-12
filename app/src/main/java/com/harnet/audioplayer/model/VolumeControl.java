@@ -42,10 +42,10 @@ public class VolumeControl {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress,0);
-//                Log.i("Seek bar change", String.valueOf(progress));
                 volumeLevelDisplay.setText(String.valueOf(Math.round(progress*6.66)));
                 muteBtnView.setBackgroundResource(R.drawable.unmute_btn);
                 volumeControl.getProgressDrawable().setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
+                currentVolume = progress;
                 isSoundMute = false;
             }
 
@@ -60,6 +60,7 @@ public class VolumeControl {
             }
         });
     }
+
     public void muteSound(){
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,0);
         volumeLevelDisplay.setText(String.valueOf(0));
@@ -70,7 +71,7 @@ public class VolumeControl {
 
     public void unmuteSound(){
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume,0);
-        volumeLevelDisplay.setText(String.valueOf(currentVolume));
+        volumeLevelDisplay.setText(String.valueOf(Math.round(currentVolume*6.66))); // BUG
         muteBtnView.setBackgroundResource(R.drawable.unmute_btn);
         volumeControl.getProgressDrawable().setColorFilter(0xFF00FFFF, PorterDuff.Mode.MULTIPLY);
         isSoundMute = false;

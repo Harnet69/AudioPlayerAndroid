@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         TextView remainingTimeDisplay = findViewById(R.id.remainingTime);
         Button muteBtnView = findViewById(R.id.muteBtn);
         SeekBar volumeControlView = findViewById(R.id.volumeControl);
-        SeekBar scrubControl = findViewById(R.id.scrubControl);
+        SeekBar scrubControlView = findViewById(R.id.scrubControl);
         ImageButton playView = findViewById(R.id.playBtn);
         ImageButton pauseView = findViewById(R.id.pauseBtn);
 
@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
 
-        ScrubControl scrubControls = new ScrubControl(audioManager, remainingTimeDisplay);
+        ScrubControl scrubControls = new ScrubControl(audioManager, scrubControlView, remainingTimeDisplay);
+        scrubControls.manageScrubControl();
 
         muteBtn.clickAction(muteBtnView);
         playBtn.clickAction(playView);

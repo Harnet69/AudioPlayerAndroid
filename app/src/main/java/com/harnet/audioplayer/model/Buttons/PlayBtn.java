@@ -2,7 +2,6 @@ package com.harnet.audioplayer.model.Buttons;
 
 import android.media.MediaPlayer;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class PlayBtn extends ControlBtn {
