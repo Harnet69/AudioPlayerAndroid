@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
 
-        ScrubControl scrubControls = new ScrubControl(audioManager, scrubControlView, remainingTimeDisplay);
+        ScrubControl scrubControls = new ScrubControl(mediaPlayer, scrubControlView, remainingTimeDisplay);
         scrubControls.manageScrubControl();
 
         muteBtn.clickAction(muteBtnView);
