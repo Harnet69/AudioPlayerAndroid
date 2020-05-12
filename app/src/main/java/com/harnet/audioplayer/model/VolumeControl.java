@@ -1,9 +1,7 @@
 package com.harnet.audioplayer.model;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;

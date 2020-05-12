@@ -14,6 +14,7 @@ import com.harnet.audioplayer.model.Buttons.ControlBtn;
 import com.harnet.audioplayer.model.Buttons.MuteBtn;
 import com.harnet.audioplayer.model.Buttons.PauseBtn;
 import com.harnet.audioplayer.model.Buttons.PlayBtn;
+import com.harnet.audioplayer.model.ScrubControl;
 import com.harnet.audioplayer.model.SongInfo;
 import com.harnet.audioplayer.model.VolumeControl;
 
@@ -30,22 +31,25 @@ public class MainActivity extends AppCompatActivity {
 
         TextView songNameTextDisplay = findViewById(R.id.songInfoDisplay);
         TextView volumeLevelDisplay = findViewById(R.id.volumeLevelDisplay);
+        TextView remainingTimeDisplay = findViewById(R.id.remainingTime);
         Button muteBtnView = findViewById(R.id.muteBtn);
         SeekBar volumeControlView = findViewById(R.id.volumeControl);
+        SeekBar scrubControl = findViewById(R.id.scrubControl);
         ImageButton playView = findViewById(R.id.playBtn);
         ImageButton pauseView = findViewById(R.id.pauseBtn);
 
-
-
         SongInfo songInfo = new SongInfo();
+
         assert audioManager != null;
         VolumeControl volumeControls = new VolumeControl(audioManager, volumeControlView, volumeLevelDisplay, muteBtnView);
         volumeLevelDisplay.setText(String.valueOf(Math.round(volumeControls.getCurrentVolume()*6.66)));
         MuteBtn muteBtn = new MuteBtn("Mute btn", audioManager, volumeControls);
-
         volumeControls.manageVolumeControl();
+
         ControlBtn playBtn = new PlayBtn("Play", mediaPlayer);
         ControlBtn pauseBtn = new PauseBtn("Pause", mediaPlayer);
+
+        ScrubControl scrubControls = new ScrubControl(audioManager, remainingTimeDisplay);
 
         muteBtn.clickAction(muteBtnView);
         playBtn.clickAction(playView);
